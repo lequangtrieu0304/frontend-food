@@ -1,5 +1,5 @@
 import {create} from "zustand";
-import {createJSONStorage, devtools} from "zustand/middleware";
+import {createJSONStorage, persist} from "zustand/middleware";
 import axios from "axios";
 import {LoginInputState} from "@/schema/userSchema";
 import {toast} from "sonner";
@@ -7,17 +7,15 @@ import {toast} from "sonner";
 const API_END_POINT = "http://localhost:3000/api/v1/users"
 axios.defaults.withCredentials = true;
 
-type User = {
+export interface User {
   username: string;
   fullName: string;
   email: string;
-  contact: number;
   address: string;
   city: string;
   country: string;
-  profilePicture: string;
-  admin: boolean;
   isVerified: boolean;
+  token: string
 }
 
 type UserState = {
@@ -28,7 +26,7 @@ type UserState = {
   login: (input: LoginInputState) => Promise<void>;
 }
 
-export const useUserStore = create<UserState>()(devtools((set) => ({
+export const useUserStore = create<UserState>()(persist((set) => ({
     user: null,
     isAuthenticated: false,
     isCheckingAuth: true,

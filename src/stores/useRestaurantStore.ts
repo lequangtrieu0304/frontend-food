@@ -42,7 +42,10 @@ export const useRestaurantStore = create<RestaurantState>()(persist((set) => ({
       try {
         const response = await axios.get(`${API_END_POINT}/api/v1/restaurants/${restaurantId}`);
         if (response.data.success) {
-          set({singleRestaurant: response.data.data})
+          set({
+            singleRestaurant: response.data.data,
+            restaurant: response.data.data
+          })
         }
       } catch (error) {
         console.log(error)

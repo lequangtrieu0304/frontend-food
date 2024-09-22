@@ -1,6 +1,5 @@
 export type CheckoutSessionRequest = {
   cartItems:{
-    menuId:string;
     name:string;
     image:string;
     price:string;
@@ -9,12 +8,11 @@ export type CheckoutSessionRequest = {
   deliveryDetails:{
     name:string;
     email:string;
-    contact:string;
     address:string;
     city:string;
     country:string
   },
-  restaurantId:string;
+  restaurant:string;
 }
 export interface Orders extends CheckoutSessionRequest {
   _id:string;
@@ -24,6 +22,6 @@ export interface Orders extends CheckoutSessionRequest {
 export type OrderState = {
   loading:boolean;
   orders:Orders[];
-  createCheckoutSession: (checkoutSessionRequest:CheckoutSessionRequest) => Promise<void>;
+  createCheckoutSession: (checkoutSessionRequest:CheckoutSessionRequest, user: any) => Promise<void>;
   getOrderDetails: () => Promise<void>;
 }

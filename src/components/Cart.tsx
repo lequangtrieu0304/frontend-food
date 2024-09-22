@@ -1,30 +1,20 @@
-import { Minus, Plus } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Button } from "./ui/button";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "./ui/table";
-import { useState } from "react";
-// import CheckoutConfirmPage from "./CheckoutConfirmPage";
-import { useCartStore } from "@/stores/useUserCart.ts";
-import { CartItem } from "@/types/cartType";
-import {fakeCartItems} from "@/data/dataFaker.ts";
+import {Minus, Plus} from "lucide-react";
+import {Avatar, AvatarFallback, AvatarImage} from "./ui/avatar";
+import {Button} from "./ui/button";
+import {Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow,} from "./ui/table";
+import {useState} from "react";
+import {useCartStore} from "@/stores/useUserCart.ts";
+import {CartItem} from "@/types/cartType";
+import CheckoutConfirmPage from "@/components/CheckoutConfirmPage.tsx";
 
 const Cart = () => {
   const [open, setOpen] = useState<boolean>(false);
-  const { cart, decrementQuantity, incrementQuantity } = useCartStore();
+  const { cart, decrementQuantity, incrementQuantity, removeFromTheCart } = useCartStore();
 
-  console.log(cart)
-
-  const totalAmount = fakeCartItems.reduce((acc, item) => {
+  const totalAmount = cart.reduce((acc, item) => {
     return acc + item.price * item.quantity;
   }, 0);
+
   return (
     <div className="flex flex-col max-w-7xl mx-auto my-10">
       <div className="flex justify-end">
@@ -42,11 +32,11 @@ const Cart = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {fakeCartItems.map((item: CartItem) => (
+          {cart.map((item: CartItem) => (
             <TableRow>
               <TableCell>
                 <Avatar>
-                  <AvatarImage src={item.image} alt="" />
+                  <AvatarImage src={item.imageUrl} alt="" />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
               </TableCell>
@@ -81,7 +71,7 @@ const Cart = () => {
                 </div>
               </TableCell>
               <TableCell className="text-right">
-                <Button size={"sm"}>
+                <Button size={"sm"} onClick={() => removeFromTheCart(item._id)}>
                   Remove
                 </Button>
               </TableCell>
@@ -99,12 +89,11 @@ const Cart = () => {
       <div className="flex justify-end my-5">
         <Button
           onClick={() => setOpen(true)}
-          className="bg-orange hover:bg-hoverOrange"
         >
           Proceed To Checkout
         </Button>
       </div>
-      {/*<CheckoutConfirmPage open={open} setOpen={setOpen} />*/}
+      <CheckoutConfirmPage open={open} setOpen={setOpen} />
     </div>
   );
 };
