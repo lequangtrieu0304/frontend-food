@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {
+  Bell,
   HandPlatter,
   Menu,
   Moon,
@@ -20,7 +21,8 @@ import {
 } from "lucide-react";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.tsx";
 import {
-  Sheet, SheetClose,
+  Sheet,
+  SheetClose,
   SheetContent,
   SheetDescription,
   SheetFooter,
@@ -29,9 +31,34 @@ import {
   SheetTrigger
 } from "@/components/ui/sheet.tsx";
 import {Separator} from "@/components/ui/separator.tsx";
+import React, {useEffect, useRef, useState} from "react";
+import Notification from "@/components/Notification.tsx";
+// import {io} from "socket.io-client";
+
+// const socket = io('http://localhost:3000');
 
 const NavBar = () => {
   const admin = true;
+  const [open, setOpen] = useState(false);
+  const dropdownRef: React.MutableRefObject<any> = useRef(null);
+  // const [messages, setMessages] = useState<{ sender: string; message: string }[]>([]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: any) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [dropdownRef]);
+
+  const handleToggle = () => {
+    setOpen(!open);
+  };
   return (
     <div className='max-w-7xl mx-auto'>
       <div className='flex items-center justify-between h-14'>
@@ -104,6 +131,17 @@ const NavBar = () => {
                 </Button>
               </Link>
             </div>
+            <div className="bell-dropdown" ref={dropdownRef}>
+              <div onClick={handleToggle} className="bell-icon">
+                <Bell/>
+              </div>
+
+              {(open &&
+                <div className="dropdown-menu">
+                  <Notification />
+                </div>
+              )}
+            </div>
             <div>
               <Avatar>
                 <AvatarImage/>
@@ -157,31 +195,31 @@ const MobileNavBar = () => {
             </DropdownMenuContent>
           </DropdownMenu>
         </SheetHeader>
-        <Separator />
+        <Separator/>
 
         <SheetDescription className='flex-1'>
           <Link to="/profile" className='flex items-center gap-4 cursor-pointer py-2'>
-            <User />
+            <User/>
             <span>Profile</span>
           </Link>
           <Link to="/profile" className='flex items-center gap-4 cursor-pointer py-2'>
-            <HandPlatter />
+            <HandPlatter/>
             <span>Order</span>
           </Link>
           <Link to="/profile" className='flex items-center gap-4 cursor-pointer py-2'>
-            <ShoppingCart />
+            <ShoppingCart/>
             <span>Cart (0)</span>
           </Link>
           <Link to="/profile" className='flex items-center gap-4 cursor-pointer py-2'>
-            <SquareMenu />
+            <SquareMenu/>
             <span>Menu</span>
           </Link>
           <Link to="/profile" className='flex items-center gap-4 cursor-pointer py-2'>
-            <UtensilsCrossed />
+            <UtensilsCrossed/>
             <span>Restaurant</span>
           </Link>
           <Link to="/profile" className='flex items-center gap-4 cursor-pointer py-2'>
-            <PackageCheck />
+            <PackageCheck/>
             <span>Restaurant Orders</span>
           </Link>
         </SheetDescription>
@@ -189,7 +227,7 @@ const MobileNavBar = () => {
         <SheetFooter className='flex flex-col gap-2'>
           <div className='flex flex-row items-center gap-2'>
             <Avatar>
-              <AvatarImage />
+              <AvatarImage/>
               <AvatarFallback>
                 CN
               </AvatarFallback>
