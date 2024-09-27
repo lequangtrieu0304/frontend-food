@@ -10,6 +10,7 @@ import Search from "@/components/Search.tsx";
 import Cart from "@/components/Cart.tsx";
 import RestaurantDetail from "@/components/RestaurantDetail.tsx";
 import {useUserStore} from "@/stores/useUserStore.ts";
+import './App.css';
 
 const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated, user } = useUserStore();

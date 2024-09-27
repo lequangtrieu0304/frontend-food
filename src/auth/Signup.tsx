@@ -34,8 +34,6 @@ const SignUp = () => {
       setErrors(fieldError as Partial<SignUpInputState>);
       return;
     }
-
-    console.log(input)
   }
 
   const loading = false;

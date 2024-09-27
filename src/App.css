@@ -5,38 +5,109 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/*.logo {*/
+/*  height: 6em;*/
+/*  padding: 1.5em;*/
+/*  will-change: filter;*/
+/*  transition: filter 300ms;*/
+/*}*/
+/*.logo:hover {*/
+/*  filter: drop-shadow(0 0 2em #646cffaa);*/
+/*}*/
+/*.logo.react:hover {*/
+/*  filter: drop-shadow(0 0 2em #61dafbaa);*/
+/*}*/
+
+/*@keyframes logo-spin {*/
+/*  from {*/
+/*    transform: rotate(0deg);*/
+/*  }*/
+/*  to {*/
+/*    transform: rotate(360deg);*/
+/*  }*/
+/*}*/
+
+/*@media (prefers-reduced-motion: no-preference) {*/
+/*  a:nth-of-type(2) .logo {*/
+/*    animation: logo-spin infinite 20s linear;*/
+/*  }*/
+/*}*/
+
+/*.card {*/
+/*  padding: 2em;*/
+/*}*/
+
+/*.read-the-docs {*/
+/*  color: #888;*/
+/*}*/
+
+.bell-dropdown {
+  position: relative;
+  display: inline-block;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.bell-icon {
+  cursor: pointer;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 10px;
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  z-index: 1000;
 }
 
-.card {
-  padding: 2em;
+.dropdown-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.read-the-docs {
-  color: #888;
+.dropdown-menu li {
+  padding: 10px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  text-align: start;
 }
+
+.dropdown-menu li:hover {
+  background-color: #f9f9f9;
+}
+
+ul.custom-list {
+  list-style-type: none; /* Loại bỏ dấu chấm mặc định */
+  padding: 0;
+}
+
+ul.custom-list li {
+  position: relative;
+  padding-left: 30px; /* Khoảng cách từ dấu chấm đến nội dung */
+  margin-bottom: 10px; /* Khoảng cách giữa các mục */
+}
+
+ul.custom-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  background-color: blue; /* Màu xanh cho dấu chấm */
+  border-radius: 50%; /* Tạo hình tròn */
+  margin-left: 10px;
+}
+
+ul.custom-list .timestamp {
+  display: block;
+  font-size: 0.9em;
+  color: gray; /* Màu xám cho thời gian */
+  margin-top: 5px;
+}
+
+

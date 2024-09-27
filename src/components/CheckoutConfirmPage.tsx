@@ -39,7 +39,6 @@ const CheckoutConfirmPage = ({open, setOpen}: {
 
   const checkoutHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // api implementation start from here
     try {
       const checkoutData: CheckoutSessionRequest = {
         cartItems: cart.map((cartItem) => ({
